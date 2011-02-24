@@ -481,18 +481,18 @@ class Import:
     def __init__(self, node):
         self.node = node
         self.interval    = node.getAttribute("interval")
-        self.callFpdbHud   = node.getAttribute("callFpdbHud")
+        self.callFpdbHud   = string_to_bool(node.getAttribute("callFpdbHud"), default=False)
         self.hhArchiveBase = node.getAttribute("hhArchiveBase")
         self.ResultsDirectory = node.getAttribute("ResultsDirectory")
         self.hhBulkPath = node.getAttribute("hhBulkPath")
         self.saveActions = string_to_bool(node.getAttribute("saveActions"), default=False)
         self.cacheSessions = string_to_bool(node.getAttribute("cacheSessions"), default=False)
-        self.sessionTimeout = string_to_bool(node.getAttribute("sessionTimeout"), default=30)
+        self.sessionTimeout = node.getAttribute("sessionTimeout")
         self.fastStoreHudCache = string_to_bool(node.getAttribute("fastStoreHudCache"), default=False)
         self.saveStarsHH = string_to_bool(node.getAttribute("saveStarsHH"), default=False)
 
     def __str__(self):
-        return "    interval = %s\n    callFpdbHud = %s\n    hhArchiveBase = %s\n    saveActions = %s\n    fastStoreHudCache = %s\nResultsDirectory = %s" \
+        return "    interval = %s\n    callFpdbHud = %s\n    hhArchiveBase = %s\n    saveActions = %s\n    self.cacheSessions  = %s\n   self.sessionTimeout  = %s\n   fastStoreHudCache = %s\n" \
             % (self.interval, self.callFpdbHud, self.hhArchiveBase, self.saveActions, self.cacheSessions, self.sessionTimeout, self.fastStoreHudCache, self.ResultsDirectory)
 
 class HudUI:
