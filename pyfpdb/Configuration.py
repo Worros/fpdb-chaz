@@ -492,8 +492,8 @@ class Import:
         self.saveStarsHH = string_to_bool(node.getAttribute("saveStarsHH"), default=False)
 
     def __str__(self):
-        return "    interval = %s\n    callFpdbHud = %s\n    hhArchiveBase = %s\n    saveActions = %s\n    self.cacheSessions  = %s\n   self.sessionTimeout  = %s\n   fastStoreHudCache = %s\n" \
-            % (self.interval, self.callFpdbHud, self.hhArchiveBase, self.saveActions, self.cacheSessions, self.sessionTimeout, self.fastStoreHudCache, self.ResultsDirectory)
+        return "    interval = %s\n    callFpdbHud = %s\n    hhArchiveBase = %s\n   self.ResultsDirectory = %s\n    hhBulkPath = %s\n    saveActions = %s\n    self.cacheSessions  = %s\n   self.sessionTimeout  = %s\n   fastStoreHudCache = %s\n" \
+            % (self.interval, self.callFpdbHud, self.hhArchiveBase, self.ResultsDirectory, self.hhBulkPath, self.saveActions, self.cacheSessions, self.sessionTimeout, self.fastStoreHudCache)
 
 class HudUI:
     def __init__(self, node):
