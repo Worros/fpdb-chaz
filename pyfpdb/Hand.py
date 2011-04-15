@@ -250,13 +250,12 @@ dealt   whether they were seen in a 'dealt to' line
                                     int(Decimal(self.gametype['bb'])*100), int(Decimal(self.gametype['bb'])*200))
         # Note: the above data is calculated in db.getGameTypeId
         #       Only being calculated above so we can grab the testdata
-        self.dbid_gt = db.getGameTypeId(self.siteId, self.gametype, printdata = printtest)
         
         if self.tourNo!=None:
             self.tourneyTypeId = db.createTourneyType(self)
             self.tourneyId = db.createOrUpdateTourney(self, "HHC")
             self.tourneysPlayersIds = db.createOrUpdateTourneysPlayers(self, "HHC")
-        #db.commit() #commit these transactions'  
+            db.commit() #commit these transactions'  
         
     def assembleHand(self):
         self.stats.getStats(self)

@@ -2554,6 +2554,7 @@ class Database:
 
         c = self.get_cursor()
         c.execute( self.sql.query['insertGameTypes'], row )
+        self.commit()
         return [self.get_last_insert_id(c)]
     
     def storeFile(self, fdata):
