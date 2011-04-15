@@ -1000,6 +1000,7 @@ class Database:
         if (tmp == None): #new player
             c.execute ("INSERT INTO Players (name, siteId) VALUES (%s, %s)".replace('%s',self.sql.query['placeholder'])
                       ,(_name, site_id))
+            self.commit()
             #Get last id might be faster here.
             #c.execute ("SELECT id FROM Players WHERE name=%s", (name,))
             result = self.get_last_insert_id(c)
