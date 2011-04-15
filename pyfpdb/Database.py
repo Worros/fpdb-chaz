@@ -998,9 +998,18 @@ class Database:
 
         tmp = c.fetchone()
         if (tmp == None): #new player
-            c.execute ("INSERT INTO Players (name, siteId) VALUES (%s, %s)".replace('%s',self.sql.query['placeholder'])
-                      ,(_name, site_id))
-            self.commit()
+            while True:
+                try:
+                    c.execute ("INSERT INTO Players (name, siteId) VALUES (%s, %s)".replace('%s',self.sql.query['placeholder'])
+                              ,(_name, site_id))
+                    break
+                except:
+                    c.execute (q, (site_id, _name))
+                    tmp = c.fetchone()
+                    if tmp:
+                        result = tmp[1]
+                        return result
+                    sleep(.1)
             #Get last id might be faster here.
             #c.execute ("SELECT id FROM Players WHERE name=%s", (name,))
             result = self.get_last_insert_id(c)
@@ -2554,7 +2563,6 @@ class Database:
 
         c = self.get_cursor()
         c.execute( self.sql.query['insertGameTypes'], row )
-        self.commit()
         return [self.get_last_insert_id(c)]
     
     def storeFile(self, fdata):
