@@ -343,7 +343,7 @@ class TableState:
         self.allinThisStreet = False
         # NOTE: Need a useful way to grab payouts
         #self.icm = ICM(stacks,payouts)
-        #print icm.equities
+        #print(icm.equities)
 
         self.players = {}
 
@@ -413,7 +413,7 @@ class TableState:
             player.chips += action[2]
             player.stack -= action[2]
         else:
-            print "unhandled action: " + str(action)
+            print("unhandled action: " + str(action))
 
         if player.stack == 0:
             self.allinThisStreet = True

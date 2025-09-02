@@ -35,7 +35,7 @@ try:
         try:
             matplotlib.use('qt5agg')
         except ValueError, e:
-            print e
+            print(e)
     from matplotlib.figure import Figure
     from matplotlib.backends.backend_qt5agg import FigureCanvas
     from matplotlib.finance import candlestick_ochl
@@ -43,8 +43,8 @@ try:
     from numpy import diff, nonzero, sum, cumsum, max, min, append
 
 except ImportError, inst:
-    print _("""Failed to load numpy and/or matplotlib in Session Viewer""")
-    print "ImportError: %s" % inst.args
+    print(_("""Failed to load numpy and/or matplotlib in Session Viewer"""))
+    print("ImportError: %s" % inst.args)
 
 import Card
 import Database
@@ -177,19 +177,19 @@ class GuiSessionViewer(QSplitter):
 
         if not sitenos:
             #Should probably pop up here.
-            print _("No sites selected - defaulting to PokerStars")
+            print(_("No sites selected - defaulting to PokerStars"))
             sitenos = [2]
         if not games:
-            print _("No games found")
+            print(_("No games found"))
             return
         if not currencies:
-            print _("No currencies found")
+            print(_("No currencies found"))
             return
         if not playerids:
-            print _("No player ids found")
+            print(_("No player ids found"))
             return
         if not limits:
-            print _("No limits found")
+            print(_("No limits found"))
             return
 
         self.createStatsPane(frame, playerids, sitenos, games, currencies, limits, seats)
@@ -201,17 +201,17 @@ class GuiSessionViewer(QSplitter):
 
         if DEBUG:
             for x in quotes:
-                print "start %s\tend %s  \thigh %s\tlow %s" % (x[1], x[2], x[3], x[4])
+                print("start %s\tend %s  \thigh %s\tlow %s" % (x[1], x[2], x[3], x[4]))
 
         self.generateGraph(quotes)
 
         self.addTable(frame, results)
 
         self.db.rollback()
-        print _("Stats page displayed in %4.2f seconds") % (time() - starttime)
+        print(_("Stats page displayed in %4.2f seconds") % (time() - starttime))
 
     def generateDatasets(self, playerids, sitenos, games, currencies, limits, seats):
-        if (DEBUG): print "DEBUG: Starting generateDatasets"
+        if (DEBUG): print("DEBUG: Starting generateDatasets")
         THRESHOLD = 1800     # Min # of secs between consecutive hands before being considered a new session
         PADDING   = 5        # Additional time in minutes to add to a session, session startup, shutdown etc
 
@@ -292,23 +292,23 @@ class GuiSessionViewer(QSplitter):
         # Take that list and create an array of the time between hands
         times = map(lambda x:long(x[0]), hands)
         profits = map(lambda x:float(x[1]), hands)
-        #print "DEBUG: times   : %s" % times
-        #print "DEBUG: profits: %s" % profits
-        #print "DEBUG: len(times) %s" %(len(times))
+        #print("DEBUG: times   : %s" % times)
+        #print("DEBUG: profits: %s" % profits)
+        #print("DEBUG: len(times) %s" %(len(times)))
         diffs = diff(times)                      # This array is the difference in starttime between consecutive hands
         diffs2 = append(diffs,THRESHOLD + 1)     # Append an additional session to the end of the diffs, so the next line
                                                  # includes an index into the last 'session'
         index = nonzero(diffs2 > THRESHOLD)      # This array represents the indexes into 'times' for start/end times of sessions
                                                  # times[index[0][0]] is the end of the first session,
-        #print "DEBUG: len(index[0]) %s" %(len(index[0]))
+        #print("DEBUG: len(index[0]) %s" %(len(index[0])))
         if len(index[0]) > 0:
-            #print "DEBUG: index[0][0] %s" %(index[0][0])
-            #print "DEBUG: index %s" %(index)
+            #print("DEBUG: index[0][0] %s" %(index[0][0]))
+            #print("DEBUG: index %s" %(index))
             pass
         else:
             index = [[0]]
-            #print "DEBUG: index %s" %(index)
-            #print "DEBUG: index[0][0] %s" %(index[0][0])
+            #print("DEBUG: index %s" %(index))
+            #print("DEBUG: index[0][0] %s" %(index[0][0]))
             pass
 
         first_idx = 1
@@ -325,7 +325,7 @@ class GuiSessionViewer(QSplitter):
 
         self.times = []
         # Take all results and format them into a list for feeding into gui model.
-        #print "DEBUG: range(len(index[0]): %s" % range(len(index[0]))
+        #print("DEBUG: range(len(index[0]): %s" % range(len(index[0])))
         for i in range(len(index[0])):
             last_idx = index[0][i]
             hds = last_idx - first_idx + 1                                           # Number of hands in session
@@ -340,12 +340,12 @@ class GuiSessionViewer(QSplitter):
                 hph = hds*60/minutesplayed # Hands per hour
                 end_idx = last_idx+1
                 won = sum(profits[first_idx:end_idx])/100.0
-                #print "DEBUG: profits[%s:%s]: %s" % (first_idx, end_idx, profits[first_idx:end_idx])
+                #print("DEBUG: profits[%s:%s]: %s" % (first_idx, end_idx, profits[first_idx:end_idx]))
                 hwm = max(cum_sum[first_idx-1:end_idx]) # include the opening balance,
                 lwm = min(cum_sum[first_idx-1:end_idx]) # before we win/lose first hand
                 open = (sum(profits[:first_idx]))/100
                 close = (sum(profits[:end_idx]))/100
-                #print "DEBUG: range: (%s, %s) - (min, max): (%s, %s) - (open,close): (%s, %s)" %(first_idx, end_idx, lwm, hwm, open, close)
+                #print("DEBUG: range: (%s, %s) - (min, max): (%s, %s) - (open,close): (%s, %s)" %(first_idx, end_idx, lwm, hwm, open, close))
             
                 total_hands = total_hands + hds
                 total_time = total_time + minutesplayed
@@ -365,11 +365,11 @@ class GuiSessionViewer(QSplitter):
                                 "%.2f" % (hwm - lwm),
                                 "%.2f" % won])
                 quotes.append((sid, open, close, hwm, lwm))
-                #print "DEBUG: Hands in session %4s: %4s  Start: %s End: %s HPH: %s Profit: %s" %(sid, hds, stime, etime, hph, won)
+                #print("DEBUG: Hands in session %4s: %4s  Start: %s End: %s HPH: %s Profit: %s" %(sid, hds, stime, etime, hph, won))
                 first_idx = end_idx
                 sid = sid+1
             else:
-                print "hds <= 0"
+                print("hds <= 0")
         global_close = close
         global_etime = etime
         results.append([''] * 11)
@@ -404,7 +404,7 @@ class GuiSessionViewer(QSplitter):
             self.canvas.setParent(self)
         except:
             err = traceback.extract_tb(sys.exc_info()[2])[-1]
-            print _("Error:")+" "+err[2]+"("+str(err[1])+"): "+str(sys.exc_info()[1])
+            print(_("Error:")+" "+err[2]+"("+str(err[1])+"): "+str(sys.exc_info()[1]))
             raise
 
 

@@ -35,15 +35,15 @@ try:
         try:
             matplotlib.use('qt5agg')
         except ValueError, e:
-            print e
+            print(e)
     from matplotlib.figure import Figure
     from matplotlib.backends.backend_qt5agg import FigureCanvas
     from matplotlib.font_manager import FontProperties
     from numpy import cumsum
 except ImportError, inst:
-    print _("""Failed to load libs for graphing, graphing will not function. Please install numpy and matplotlib if you want to use graphs.""")
-    print _("""This is of no consequence for other parts of the program, e.g. import and HUD are NOT affected by this problem.""")
-    print "ImportError: %s" % inst.args
+    print(_("""Failed to load libs for graphing, graphing will not function. Please install numpy and matplotlib if you want to use graphs."""))
+    print(_("""This is of no consequence for other parts of the program, e.g. import and HUD are NOT affected by this problem."""))
+    print("ImportError: %s" % inst.args)
 
 
 class GuiGraphViewer(QSplitter):
@@ -144,17 +144,17 @@ class GuiGraphViewer(QSplitter):
 
         if not sitenos:
             #Should probably pop up here.
-            print _("No sites selected - defaulting to PokerStars")
+            print(_("No sites selected - defaulting to PokerStars"))
             self.db.rollback()
             return
 
         if not playerids:
-            print _("No player ids found")
+            print(_("No player ids found"))
             self.db.rollback()
             return
 
         if not limits:
-            print _("No limits found")
+            print(_("No limits found"))
             self.db.rollback()
             return
 
@@ -164,7 +164,7 @@ class GuiGraphViewer(QSplitter):
         #Get graph data from DB
         starttime = time()
         (green, blue, red, orange) = self.getRingProfitGraph(playerids, sitenos, limits, games, currencies, display_in)
-        print _("Graph generated in: %s") %(time() - starttime)
+        print(_("Graph generated in: %s") %(time() - starttime))
 
         #Set axis labels and grid overlay properites
         self.ax.set_xlabel(_("Hands"))
@@ -226,7 +226,7 @@ class GuiGraphViewer(QSplitter):
 
     def getRingProfitGraph(self, names, sites, limits, games, currencies, units):
 #        tmp = self.sql.query['getRingProfitAllHandsPlayerIdSite']
-#        print "DEBUG: getRingProfitGraph"
+#        print("DEBUG: getRingProfitGraph")
 
         if units == '$':
             tmp = self.sql.query['getRingProfitAllHandsPlayerIdSiteInDollars']
@@ -277,8 +277,8 @@ class GuiGraphViewer(QSplitter):
         tmp = tmp.replace("<currency_test>", currencytest)
         tmp = tmp.replace(",)", ")")
 
-        #print "DEBUG: sql query:"
-        #print tmp
+        #print("DEBUG: sql query:")
+        #print(tmp)
         self.db.cursor.execute(tmp)
         #returns (HandId,Winnings,Costs,Profit)
         winnings = self.db.cursor.fetchall()
@@ -317,7 +317,7 @@ class GuiGraphViewer(QSplitter):
         response = dia_chooser.run()
         
         if response != gtk.RESPONSE_OK:
-            print _('Closed, no graph exported')
+            print(_('Closed, no graph exported'))
             dia_chooser.destroy()
             return
             

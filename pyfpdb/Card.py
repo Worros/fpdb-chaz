@@ -191,7 +191,7 @@ def twoStartCards(value1, suit1, value2, suit2):
         else:
             ret = 13 * (value1-2) + (value2-2) + 1
 
-#    print "twoStartCards(", value1, suit1, value2, suit2, ")=", ret
+#    print("twoStartCards(", value1, suit1, value2, suit2, ")=", ret)
     return ret
 
 def twoStartCardString(card):
@@ -205,7 +205,7 @@ def twoStartCardString(card):
         if x == y:  ret = s[x] + s[y]
         elif x > y: ret = s[x] + s[y] + 's'
         else:       ret = s[y] + s[x] + 'o'
-    #print "twoStartCardString(", card ,") = " + ret
+    #print("twoStartCardString(", card ,") = " + ret)
     return ret
 
 def cardFromValueSuit(value, suit):
@@ -375,7 +375,7 @@ def encodeRazzStartHand(cards):
         startHand = "(%s%s)%s" %(cards[0][0], cards[1][0], cards[2][0])
     else:
         startHand = "(%s%s)%s" %(cards[1][0], cards[0][0], cards[2][0])
-    #print "DEBUG: startHand: %s" % startHand
+    #print("DEBUG: startHand: %s" % startHand)
     encodeRazzList = { 
     '(00)A':-13,'(00)2':-12,'(00)3':-11,'(00)4':-10,'(00)5':-9,'(00)6':-8,'(00)7':-7,'(00)8':-6,'(00)9':-5,'(00)T':-4,
     '(00)J':-3,'(00)Q':-2,'(00)K':-1,
@@ -500,7 +500,7 @@ def encodeRazzStartHand(cards):
     '(KQ)K':1170,'(AA)A':1171,'(22)2':1172,'(33)3':1173,'(44)4':1174,'(55)5':1175,'(66)6':1176,'(77)7':1177,'(88)8':1178,'(99)9':1179,
     '(TT)T':1180,'(JJ)J':1181,'(QQ)Q':1182,'(KK)K':1183,
     }
-    #print "DEBUG: encodeRazzList['%s']: %s" % (startHand, encodeRazzList[startHand])
+    #print("DEBUG: encodeRazzList['%s']: %s" % (startHand, encodeRazzList[startHand]))
     idx = encodeRazzList.get(startHand)
     if idx:
         return idx

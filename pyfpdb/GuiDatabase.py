@@ -129,7 +129,7 @@ class GuiDatabase:
             #self.dia.connect('response', self.dialog_response_cb)
         except:
             err = traceback.extract_tb(sys.exc_info()[2])[-1]
-            print 'guidbmaint: '+ err[2] + "(" + str(err[1]) + "): " + str(sys.exc_info()[1])
+            print('guidbmaint: '+ err[2] + "(" + str(err[1]) + "): " + str(sys.exc_info()[1]))
 
     def dialog_response_cb(self, dialog, response_id):
         # this is called whether close button is pressed or window is closed
@@ -225,7 +225,7 @@ class GuiDatabase:
                         self.setDefaultDB(row)
 
     def setDefaultDB(self, row):
-        print "set new defaultdb:", row, self.liststore[row][self.MODEL_NAME]
+        print("set new defaultdb:", row, self.liststore[row][self.MODEL_NAME])
         for r in xrange(len(self.liststore)):
             if r == row:
                 self.liststore[r][self.MODEL_DFLTIC] = gtk.STOCK_APPLY
@@ -287,7 +287,7 @@ class GuiDatabase:
             self.dia.show()
         except:
             err = traceback.extract_tb(sys.exc_info()[2])[-1]
-            print _('loadDbs error: ')+str(dbms_num)+','+host+','+name+','+user+','+passwd+' failed: ' \
+            print(_('loadDbs error: ')+str(dbms_num)+','+host+','+name+','+user+','+passwd+' failed: ' \)
                       + err[2] + "(" + str(err[1]) + "): " + str(sys.exc_info()[1])
 
     def sortCols(self, col, n):
@@ -308,8 +308,8 @@ class GuiDatabase:
             # to turn indicator off for other cols
         except:
             err = traceback.extract_tb(sys.exc_info()[2])
-            print "***sortCols " + _("error") + ": " + str(sys.exc_info()[1])
-            print "\n".join( [e[0]+':'+str(e[1])+" "+e[2] for e in err] )
+            print("***sortCols " + _("error") + ": " + str(sys.exc_info()[1]))
+            print("\n".join( [e[0]+':'+str(e[1])+" "+e[2] for e in err] ))
             log.info('sortCols ' + _('error') + ': ' + str(sys.exc_info()) )
 
     def refresh(self, widget, data):

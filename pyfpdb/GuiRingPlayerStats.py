@@ -225,13 +225,13 @@ class GuiRingPlayerStats(QSplitter):
 
         if not sitenos:
             #Should probably pop up here.
-            print _("No sites selected - defaulting to PokerStars")
+            print(_("No sites selected - defaulting to PokerStars"))
             sitenos = [2]
         if not playerids:
-            print _("No player ids found")
+            print(_("No player ids found"))
             return
         if not limits:
-            print _("No limits found")
+            print(_("No limits found"))
             return
 
         self.createStatsTable(vbox, playerids, sitenos, limits, seats, groups, dates, games, currencies)
@@ -271,7 +271,7 @@ class GuiRingPlayerStats(QSplitter):
                         ,sitenos, limits, seats, groups, dates, games, currencies)
 
         self.db.rollback()
-        print (_("Stats page displayed in %4.2f seconds") % (time() - startTime))
+        print((_("Stats page displayed in %4.2f seconds") % (time() - startTime)))
 
     def addGrid(self, vbox, query, flags, playerids, sitenos, limits, seats, groups, dates, games, currencies):
         sqlrow = 0

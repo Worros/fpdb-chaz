@@ -9384,5 +9384,5 @@ if __name__ == "__main__":
 #    just print the default queries and exit
     s = Sql()
     for key in s.query:
-        print "For query " + key + ", sql ="
-        print s.query[key]
+        print("For query " + key + ", sql =")
+        print(s.query[key])

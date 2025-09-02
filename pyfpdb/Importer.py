@@ -175,7 +175,7 @@ class Importer:
             
     #Add an individual file to filelist
     def addImportFile(self, filename, site = "auto"):
-        #print "addimportfile: filename is a", filename.__class__
+        #print("addimportfile: filename is a", filename.__class__)
         # filename not guaranteed to be unicode
         if self.filelist.get(filename)!=None or not os.path.exists(filename):
             return False
@@ -233,7 +233,7 @@ class Importer:
                 self.monitor = True
                 self.dirlist[site] = [dir] + [filter]
 
-            #print "addImportDirectory: checking files in", dir
+            #print("addImportDirectory: checking files in", dir)
             for subdir in os.walk(dir):
                 for file in subdir[2]:
                     filename = os.path.join(subdir[0], file)
@@ -366,7 +366,7 @@ class Importer:
         ret = "don't drop"
         if self.settings['handsInDB'] < scale * (total_size/size_per_hand) + increment:
             ret = "drop"
-        #print "auto2: handsindb =", self.settings['handsInDB'], "total_size =", total_size, "size_per_hand =", \
+        #print("auto2: handsindb =", self.settings['handsInDB'], "total_size =", total_size, "size_per_hand =", \)
         #      size_per_hand, "inc =", increment, "return:", ret
         return ret
 
@@ -524,7 +524,7 @@ class Importer:
                 if self.callHud:
                     for hid in to_hud:
                         try:
-                            print (_("fpdb_import: sending hand to hud"), hid, "pipe =", self.caller.pipe_to_hud)
+                            print(_("fpdb_import: sending hand to hud"), hid, "pipe =", self.caller.pipe_to_hud)
                             self.caller.pipe_to_hud.stdin.write("%s" % (hid) + os.linesep)
                         except IOError as e:
                             log.error(_("Failed to send hand to HUD: %s") % e)
@@ -574,7 +574,7 @@ class Importer:
                     log.error(_("Summary import parse error in file: %s") % fpdbfile.path)
                     errors += 1
                 if j != 1:
-                    print (_("Finished importing %s/%s tournament summaries") %(j, len(summaryTexts)))
+                    print(_("Finished importing %s/%s tournament summaries") %(j, len(summaryTexts)))
                 stored = j
             ####Lock Placeholder####
         ttime = time() - ttime

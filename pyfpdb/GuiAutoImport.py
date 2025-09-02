@@ -126,7 +126,7 @@ class GuiAutoImport(QWidget):
         newdir = QFileDialog.getExistingDirectory(self, caption=_("Please choose the path that you want to Auto Import"),
                                         directory=current_path)
         if newdir:
-            #print dia_chooser.get_filename(), 'selected'
+            #print(dia_chooser.get_filename(), 'selected')
             data[1].setText(newdir)
             self.input_settings[data[0]][0] = newdir
     #end def GuiAutoImport.browseClicked
@@ -154,7 +154,7 @@ class GuiAutoImport(QWidget):
         for site in the_sites:
             params = self.config.get_site_parameters(site)
             if params['enabled'] == True:
-                print (_("DEBUG:") + " " + _("Detecting hand history directory for site: '%s'") % site)
+                print((_("DEBUG:") + " " + _("Detecting hand history directory for site: '%s'") % site))
                 if os.name == 'posix':
                     if self.posix_detect_hh_dirs(site):
                         #data[1].set_text(dia_chooser.get_filename())
@@ -171,7 +171,7 @@ class GuiAutoImport(QWidget):
         if site == 'PokerStars':
             directory = os.path.expanduser(defaults[site])
             for file in [file for file in os.listdir(directory) if not file in [".",".."]]:
-                print file
+                print(file)
         return False
 
     def startClicked(self):
@@ -218,7 +218,7 @@ class GuiAutoImport(QWidget):
                         command = [command, ] + string.split(self.settings['cl_options'])
                         bs = 1
 
-                        print _("opening pipe to HUD")
+                        print(_("opening pipe to HUD"))
                     try:
                         if self.config.install_method == "exe" or (os.name == "nt" and win32console.GetConsoleWindow() == 0):
                             self.pipe_to_hud = subprocess.Popen(command, bufsize=bs,
@@ -253,7 +253,7 @@ class GuiAutoImport(QWidget):
                 self.addText("\n * " + _("Stop Auto Import") + ": " + _("HUD already terminated."))
             else:
                 self.pipe_to_hud.terminate()
-                #print >>self.pipe_to_hud.stdin, "\n"
+                #print(>>self.pipe_to_hud.stdin, "\n")
                 # self.pipe_to_hud.communicate('\n') # waits for process to terminate
             self.pipe_to_hud = None
             self.intervalEntry.setEnabled(True)

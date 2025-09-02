@@ -132,9 +132,9 @@ class GuiPositionalStats:
         return self.main_hbox
 
     def toggleCallback(self, widget, data=None):
-#        print "%s was toggled %s" % (data, ("OFF", "ON")[widget.get_active()])
+#        print("%s was toggled %s" % (data, ("OFF", "ON")[widget.get_active()]))
         self.activesite = data
-        print (_("DEBUG:") + " " + _("activesite set to %s") % (self.activesite))
+        print((_("DEBUG:") + " " + _("activesite set to %s") % (self.activesite)))
 
     def refreshStats(self, widget, data):
         try: self.stats_vbox.destroy()
@@ -164,13 +164,13 @@ class GuiPositionalStats:
 
         if not sitenos:
             #Should probably pop up here.
-            print _("No sites selected - defaulting to PokerStars")
+            print(_("No sites selected - defaulting to PokerStars"))
             sitenos = [2]
         if not playerids:
-            print _("No player ids found")
+            print(_("No player ids found"))
             return
         if not limits:
-            print _("No limits found")
+            print(_("No limits found"))
             return
 
         self.createStatsTable(vbox, playerids, sitenos, limits, seats, dates)
@@ -184,7 +184,7 @@ class GuiPositionalStats:
 
         tmp = self.sql.query['playerStatsByPosition']
         tmp = self.refineQuery(tmp, playerids, sitenos, limits, seats, dates)
-        #print "DEBUG:\n%s" % tmp
+        #print("DEBUG:\n%s" % tmp)
         self.cursor.execute(tmp)
         result = self.cursor.fetchall()
         colnames = [desc[0].lower() for desc in self.cursor.description]
@@ -284,7 +284,7 @@ class GuiPositionalStats:
         # show totals at bottom
         tmp = self.sql.query['playerStats']
         tmp = self.refineQuery(tmp, playerids, sitenos, limits, seats, dates)
-        #print "DEBUG:\n%s" % tmp
+        #print("DEBUG:\n%s" % tmp)
         self.cursor.execute(tmp)
         result = self.cursor.fetchall()
         rows = len(result)
@@ -321,7 +321,7 @@ class GuiPositionalStats:
         vbox.show_all()
 
         self.db.rollback()
-        print _("Positional Stats page displayed in %4.2f seconds") % (time() - starttime)
+        print(_("Positional Stats page displayed in %4.2f seconds") % (time() - starttime))
     #end def fillStatsFrame(self, vbox):
 
     def refineQuery(self, query, playerids, sitenos, limits, seats, dates):
@@ -374,6 +374,6 @@ class GuiPositionalStats:
         # Filter on dates
         query = query.replace("<datestest>", " between '" + dates[0] + "' and '" + dates[1] + "'")
 
-        #print "query =\n", query
+        #print("query =\n", query)
         return(query)
     #end def refineQuery(self, query, playerids, sitenos, limits):

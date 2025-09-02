@@ -192,7 +192,7 @@ class DerivedStats():
         self.hands['boardcard4'] = cards[3]
         self.hands['boardcard5'] = cards[4]
         
-        #print "cards: ",cards
+        #print("cards: ",cards)
         
         self.hands['boards'] = []
         self.hands['runItTwice'] = False           
@@ -212,7 +212,7 @@ class DerivedStats():
                 cards = [Card.encodeCard(c) for c in boardcards[-5:]]
             self.hands['boards'] += [[boardId] + cards]
 
-        #print "DEBUG: %s self.getStreetTotals = (%s, %s, %s, %s, %s, %s)" %  tuple([hand.handid] + list(hand.getStreetTotals()))
+        #print("DEBUG: %s self.getStreetTotals = (%s, %s, %s, %s, %s, %s)" %  tuple([hand.handid] + list(hand.getStreetTotals())))
         totals = hand.getStreetTotals()
         totals = [int(100*i) for i in totals]        
         self.hands['street0Pot']  = totals[0]
@@ -223,9 +223,9 @@ class DerivedStats():
         self.hands['finalPot'] = totals[5]
 
         self.vpip(hand) # Gives playersVpi (num of players vpip)
-        #print "DEBUG: vpip: %s" %(self.hands['playersVpi'])
+        #print("DEBUG: vpip: %s" %(self.hands['playersVpi']))
         self.playersAtStreetX(hand) # Gives playersAtStreet1..4 and Showdown
-        #print "DEBUG: playersAtStreet 1:'%s' 2:'%s' 3:'%s' 4:'%s'" %(self.hands['playersAtStreet1'],self.hands['playersAtStreet2'],self.hands['playersAtStreet3'],self.hands['playersAtStreet4'])
+        #print("DEBUG: playersAtStreet 1:'%s' 2:'%s' 3:'%s' 4:'%s'" %(self.hands['playersAtStreet1'],self.hands['playersAtStreet2'],self.hands['playersAtStreet3'],self.hands['playersAtStreet4']))
         self.streetXRaises(hand)
 
     def assembleHandsPlayers(self, hand):
@@ -658,8 +658,8 @@ class DerivedStats():
             (len(hand.pot.pots)>1 or (showdown and (hilo=='s' or hand.runItTimes>=2))) and 
             allinAnte == False
             ):
-            #print 'DEBUG hand.collected', hand.collected
-            #print 'DEBUG hand.collectees', hand.collectees
+            #print('DEBUG hand.collected', hand.collected)
+            #print('DEBUG hand.collectees', hand.collectees)
             if not hand.cashedOut:
                 for p in hand.players:
                     self.handsplayers[p[1]]['rake'] = 0
@@ -795,8 +795,8 @@ class DerivedStats():
         if st and st[0] in players:
             players.insert(0, players.pop())
 
-        #print "DEBUG: actions: '%s'" % actions
-        #print "DEBUG: ub: '%s' bb: '%s' sb: '%s' bi: '%s' plyrs: '%s'" %(ub, bb, sb, bi, players)
+        #print("DEBUG: actions: '%s'" % actions)
+        #print("DEBUG: ub: '%s' bb: '%s' sb: '%s' bi: '%s' plyrs: '%s'" %(ub, bb, sb, bi, players))
         for i,player in enumerate(reversed(players)): 
             self.handsplayers[player]['position'] = i
             self.hands['maxPosition'] = i
@@ -860,7 +860,7 @@ class DerivedStats():
 #            self.hands['playersAtStreet%d' % (i+1)] = len(set.union(alliners, actors))
 #
 #        actions = hand.actions[hand.actionStreets[-1]]
-#        print "p_actions:", self.pfba(actions), "p_folds:", self.pfba(actions, l=('folds',)), "alliners:", alliners
+#        print("p_actions:", self.pfba(actions), "p_folds:", self.pfba(actions, l=('folds',)), "alliners:", alliners)
 #        pas = set.union(self.pfba(actions) - self.pfba(actions, l=('folds',)),  alliners)
         
         # hand.players includes people that are sitting out on some sites for cash games
@@ -969,7 +969,7 @@ class DerivedStats():
             player_stats = self.handsplayers.get(pname)
             if player_stats['sitout']: continue
             posn = player_stats['position']
-            #print "\naction:", action[0], posn, type(posn), steal_attempt, act
+            #print("\naction:", action[0], posn, type(posn), steal_attempt, act)
             if posn == 'B':
                 #NOTE: Stud games will never hit this section
                 if steal_attempt:
@@ -1103,7 +1103,7 @@ class DerivedStats():
                     player_stats['street%dCBDone' % (i+1)] = self.betStreet(hand.actions, hand.actionStreets[i+2], name)
                     if player_stats['street%dCBDone' % (i+1)]:
                         for pname, folds in self.foldTofirstsBetOrRaiser(hand.actions, street, name).iteritems():
-                            #print "DEBUG:", hand.handid, pname.encode('utf8'), street, folds, '--', name, 'lastbet on ', hand.actionStreets[i+1]
+                            #print("DEBUG:", hand.handid, pname.encode('utf8'), street, folds, '--', name, 'lastbet on ', hand.actionStreets[i+1])
                             self.handsplayers[pname]['foldToStreet%sCBChance' % (i+1)] = True
                             self.handsplayers[pname]['foldToStreet%sCBDone' % (i+1)] = folds
 
@@ -1185,12 +1185,12 @@ class DerivedStats():
         if len(aggrers)>0 and i>0:
             for playername in others:
                 self.handsplayers[playername]['otherRaisedStreet%s' % i] = True
-                #print "otherRaised detected on handid "+str(hand.handid)+" for "+playername+" on street "+str(i)
+                #print("otherRaised detected on handid "+str(hand.handid)+" for "+playername+" on street "+str(i))
 
         if i > 0 and len(aggrers) > 0:
             for playername in others:
                 self.handsplayers[playername]['otherRaisedStreet%s' % i] = True
-                #print "DEBUG: otherRaised detected on handid %s for %s on actionStreet[%s]: %s" 
+                #print("DEBUG: otherRaised detected on handid %s for %s on actionStreet[%s]: %s" )
                 #                           %(hand.handid, playername, hand.actionStreets[i+1], i)
 
     def calls(self, hand, i):
@@ -1218,7 +1218,7 @@ class DerivedStats():
                 player_stats = self.handsplayers.get(act[0])
                 if player_stats['otherRaisedStreet%s' % i] == True:
                     player_stats['foldToOtherRaisedStreet%s' % i] = True
-                    #print "DEBUG: fold detected on handid %s for %s on actionStreet[%s]: %s"
+                    #print("DEBUG: fold detected on handid %s for %s on actionStreet[%s]: %s")
                     #                       %(hand.handid, act[0],hand.actionStreets[i+1], i)
 
     def countPlayers(self, hand):
