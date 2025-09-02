@@ -21,7 +21,7 @@ _ = L10n.get_translation()
 #    Standard Library modules
 
 import os  # todo: remove this once import_dir is in fpdb_import
-from time import time, sleep, clock
+from time import time, sleep
 import datetime
 import Queue
 import shutil
@@ -93,7 +93,10 @@ class Importer:
         for i in xrange(self.settings['threads']):
             self.writerdbs.append( Database.Database(self.config, sql = self.sql) )
 
-        clock() # init clock in windows
+        # clock() deprecated and removed in Py3.3 then 3.8
+        # 
+        # clock() # init clock in windows
+        # I have no idea if this needs to be done some other way now.
 
     #Set functions
     def setMode(self, value):
@@ -328,7 +331,7 @@ class Importer:
         if fpdbfile.ftype == "both" and fpdbfile.path not in self.updatedsize:
             self._import_summary_file(fpdbfile)
         #    pass
-        print "DEBUG: _import_summary_file.ttime: %.3f %s" % (ttime, fpdbfile.ftype)
+        print("DEBUG: _import_summary_file.ttime: %.3f %s" % (ttime, fpdbfile.ftype))
         return (stored, duplicates, partial, skipped, errors, ttime)
 
 
@@ -521,9 +524,9 @@ class Importer:
                 if self.callHud:
                     for hid in to_hud:
                         try:
-                            print _("fpdb_import: sending hand to hud"), hid, "pipe =", self.caller.pipe_to_hud
+                            print (_("fpdb_import: sending hand to hud"), hid, "pipe =", self.caller.pipe_to_hud)
                             self.caller.pipe_to_hud.stdin.write("%s" % (hid) + os.linesep)
-                        except IOError, e:
+                        except IOError as e:
                             log.error(_("Failed to send hand to HUD: %s") % e)
                 # Really ugly hack to allow testing Hands within the HHC from someone
                 # with only an Importer objec
@@ -565,13 +568,13 @@ class Importer:
                     conv = obj(db=self.database, config=self.config, siteName=fpdbfile.site.name, summaryText=summaryText, in_path = fpdbfile.path, header=summaryTexts[0])
                     self.database.resetBulkCache(False)
                     conv.insertOrUpdate(printtest = self.settings['testData'])
-                except FpdbHandPartial, e:
+                except FpdbHandPartial as e:
                     partial += 1
-                except FpdbParseError, e:
+                except FpdbParseError as e:
                     log.error(_("Summary import parse error in file: %s") % fpdbfile.path)
                     errors += 1
                 if j != 1:
-                    print _("Finished importing %s/%s tournament summaries") %(j, len(summaryTexts))
+                    print (_("Finished importing %s/%s tournament summaries") %(j, len(summaryTexts)))
                 stored = j
             ####Lock Placeholder####
         ttime = time() - ttime
