@@ -231,7 +231,7 @@ class iPoker(HandHistoryConverter):
         self.info = {}
         mg = m.groupdict()
         tourney = False
-        #print "DEBUG: m.groupdict(): %s" % mg
+        #print("DEBUG: m.groupdict(): %s" % mg)
         if mg['GAME'][:2]=='LH':
             mg['CATEGORY'] = 'Holdem'
             mg['LIMIT'] = 'L'
@@ -342,7 +342,7 @@ class iPoker(HandHistoryConverter):
             raise FpdbParseError
 
         mg = m.groupdict()
-        #print "DEBUG: m.groupdict(): %s" % mg
+        #print("DEBUG: m.groupdict(): %s" % mg)
         hand.tablename = self.tablename
         m1 = self.re_MaxSeats.search(self.tablename)
         if m1:
@@ -555,7 +555,7 @@ class iPoker(HandHistoryConverter):
             atype = action['ATYPE']
             player = action['PNAME']
             bet = self.clearMoneyString(action['BET'])
-            #print "DEBUG: street %s action: %s" % (street, action)
+            #print("DEBUG: street %s action: %s" % (street, action))
             if atype == '0':
                 hand.addFold(street, player)
             elif atype == '4':

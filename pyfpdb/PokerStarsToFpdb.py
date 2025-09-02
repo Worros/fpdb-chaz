@@ -390,14 +390,14 @@ class PokerStars(HandHistoryConverter):
                     for a in m2:
                         datetimestr = "%s/%s/%s %s:%s:%s" % (a.group('Y'), a.group('M'),a.group('D'),a.group('H'),a.group('MIN'),'00')
                         #tz = a.group('TZ')  # just assume ET??
-                        #print "   tz = ", tz, " datetime =", datetimestr
+                        #print("   tz = ", tz, " datetime =", datetimestr)
                     hand.startTime = datetime.datetime.strptime(datetimestr, "%Y/%m/%d %H:%M:%S") # also timezone at end, e.g. " ET"
                 else:
                     m1 = self.re_DateTime1.finditer(info[key])
                     for a in m1:
                         datetimestr = "%s/%s/%s %s:%s:%s" % (a.group('Y'), a.group('M'),a.group('D'),a.group('H'),a.group('MIN'),a.group('S'))
                         #tz = a.group('TZ')  # just assume ET??
-                        #print "   tz = ", tz, " datetime =", datetimestr
+                        #print("   tz = ", tz, " datetime =", datetimestr)
                     hand.startTime = datetime.datetime.strptime(datetimestr, "%Y/%m/%d %H:%M:%S") # also timezone at end, e.g. " ET"
                     hand.startTime = HandHistoryConverter.changeTimezone(hand.startTime, "ET", "UTC")
 
@@ -407,10 +407,10 @@ class PokerStars(HandHistoryConverter):
                 hand.tourNo = info[key][-18:]
             if key == 'BUYIN':
                 if hand.tourNo!=None:
-                    #print "DEBUG: info['BUYIN']: %s" % info['BUYIN']
-                    #print "DEBUG: info['BIAMT']: %s" % info['BIAMT']
-                    #print "DEBUG: info['BIRAKE']: %s" % info['BIRAKE']
-                    #print "DEBUG: info['BOUNTY']: %s" % info['BOUNTY']
+                    #print("DEBUG: info['BUYIN']: %s" % info['BUYIN'])
+                    #print("DEBUG: info['BIAMT']: %s" % info['BIAMT'])
+                    #print("DEBUG: info['BIRAKE']: %s" % info['BIRAKE'])
+                    #print("DEBUG: info['BOUNTY']: %s" % info['BOUNTY'])
                     if info[key].strip() == 'Freeroll':
                         hand.buyin = 0
                         hand.fee = 0
@@ -810,7 +810,7 @@ class PokerStars(HandHistoryConverter):
                 if m.group('SHOWED') == "showed": shown = True
                 elif m.group('SHOWED') == "mucked": mucked = True
 
-                #print "DEBUG: hand.addShownCards(%s, %s, %s, %s)" %(cards, m.group('PNAME'), shown, mucked)
+                #print("DEBUG: hand.addShownCards(%s, %s, %s, %s)" %(cards, m.group('PNAME'), shown, mucked))
                 hand.addShownCards(cards=cards, player=m.group('PNAME'), shown=shown, mucked=mucked, string=string)
 
 

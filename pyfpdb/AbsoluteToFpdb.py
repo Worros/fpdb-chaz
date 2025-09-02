@@ -160,7 +160,7 @@ class Absolute(HandHistoryConverter):
             raise FpdbParseError
 
         mg = m.groupdict()
-        #print "DEBUG: mg: %s" % mg
+        #print("DEBUG: mg: %s" % mg)
 
         # translations from captured groups to our info strings
         limits = { 
@@ -190,10 +190,10 @@ class Absolute(HandHistoryConverter):
             if not m:
                 return None # it's a HORSE game and we don't understand the game type
             temp = m.groupdict()
-            #print "AP HORSE processing"
+            #print("AP HORSE processing")
             if 'GAME' not in temp or 'LIMIT' not in temp:
                 return None # sort of understood it but not really
-            #print "temp=", temp
+            #print("temp=", temp)
             mg['GAME'] = temp['GAME']
             mg['LIMIT'] = temp['LIMIT']
         if 'GAME' in mg:
@@ -230,7 +230,7 @@ class Absolute(HandHistoryConverter):
 
     def readHandInfo(self, hand):
         m = self.re_HandInfo.search(hand.handText)
-        #print "DEBUG: fname_info.groupdict(): %s" %(fname_info.groupdict())
+        #print("DEBUG: fname_info.groupdict(): %s" %(fname_info.groupdict()))
         if m is None:
             tmp = hand.handText[0:200]
             log.error(_("AbsoluteToFpdb.readHandInfo: '%s'") % tmp)
@@ -393,7 +393,7 @@ class Absolute(HandHistoryConverter):
     def readAction(self, hand, street):
         m = self.re_Action.finditer(hand.streets[street])
         for action in m:
-            #print "%s %s %s" % (street, action.group('ATYPE'), action.groupdict())
+            #print("%s %s %s" % (street, action.group('ATYPE'), action.groupdict()))
             if action.group('ATYPE') == 'Folds':
                 hand.addFold( street, action.group('PNAME'))
             elif action.group('ATYPE') == 'Checks':

@@ -285,7 +285,7 @@ class FullTiltPokerSummary(TourneySummary):
             log.error(_("FullTiltPokerSummary.parseSummary: '%s'") % tmp)
             raise FpdbParseError
 
-        #print "DEBUG: m.groupdict(): %s" % m.groupdict()
+        #print("DEBUG: m.groupdict(): %s" % m.groupdict())
         base = None
         rebuyCounts = {}
         addOnCounts = {}
@@ -388,7 +388,7 @@ class FullTiltPokerSummary(TourneySummary):
         if m == None:
             log.error("FullTiltPokerSummary.parseSummary: " + _("Unable to locate currency"))
             raise FpdbParseError
-        #print "DEBUG: m.groupdict(): %s" % m.groupdict()
+        #print("DEBUG: m.groupdict(): %s" % m.groupdict())
 
         mg = m.groupdict()
         
@@ -405,7 +405,7 @@ class FullTiltPokerSummary(TourneySummary):
         playercount = 0
         for a in m:
             mg = a.groupdict()
-            #print "DEBUG: a.groupdict(): %s" % mg
+            #print("DEBUG: a.groupdict(): %s" % mg)
             if mg['NAME']!='[Player not loa':
                 name = mg['NAME']
                 rank = int(mg['RANK'])
@@ -435,7 +435,7 @@ class FullTiltPokerSummary(TourneySummary):
                     koCount = koCounts[name]
                     
                 if 'TICKET' and mg['TICKET'] != None:
-                    #print "Tournament Ticket Level %s" % mg['LEVEL']
+                    #print("Tournament Ticket Level %s" % mg['LEVEL'])
                     step_values = {
                                     '1' :    '330', # Step 1 -    $3.30 USD
                                     '2' :    '870', # Step 2 -    $8.70 USD

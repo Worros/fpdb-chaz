@@ -312,7 +312,7 @@ class Fulltilt(HandHistoryConverter):
             log.error(_("FulltiltToFpdb.readHandInfo: '%s'") % tmp)
             raise FpdbParseError
 
-        #print "DEBUG: m.groupdict: %s" % m.groupdict()
+        #print("DEBUG: m.groupdict: %s" % m.groupdict())
         hand.handid = m.group('HID')
         hand.tablename = m.group('TABLE')
         
@@ -370,7 +370,7 @@ class Fulltilt(HandHistoryConverter):
                 hand.maxseats = 6
             else:
                 hand.maxseats = 9
-        #print hand.maxseats
+        #print(hand.maxseats)
 
         hand.tourNo = m.group('TOURNO')
         if m.group('PLAY') is not None:
@@ -483,7 +483,7 @@ class Fulltilt(HandHistoryConverter):
                 if b.group('PNAME') in plist:
                     if hand.gametype['type'] == "ring" :
                         # Remove any listed as sitting out in the summary as start of hand info unreliable
-                        #print "DEBUG: Deleting '%s' from player dict" %(b.group('PNAME'))
+                        #print("DEBUG: Deleting '%s' from player dict" %(b.group('PNAME')))
                         del plist[b.group('PNAME')]
                     else:
                         plist[b.group('PNAME')][2] = True
@@ -536,7 +536,7 @@ class Fulltilt(HandHistoryConverter):
 
     def readCommunityCards(self, hand, street):
         if street in ('FLOPET','FLOP','TURN','RIVER'):
-            #print "DEBUG readCommunityCards:", street, hand.streets[street]
+            #print("DEBUG readCommunityCards:", street, hand.streets[street])
             m = self.re_Board.search(hand.streets[street])
             hand.setCommunityCards(street, m.group('CARDS').split(' '))
         if street in ('FLOP1', 'TURN1', 'RIVER1', 'FLOP2', 'TURN2', 'RIVER2'):
@@ -677,7 +677,7 @@ class Fulltilt(HandHistoryConverter):
                 if m.group('SHOWED') == "showed": shown = True
                 elif m.group('SHOWED') == "mucked": mucked = True
 
-                #print "DEBUG: hand.addShownCards(%s, %s, %s, %s)" %(cards, m.group('PNAME'), shown, mucked)
+                #print("DEBUG: hand.addShownCards(%s, %s, %s, %s)" %(cards, m.group('PNAME'), shown, mucked))
                 hand.addShownCards(cards=cards, player=m.group('PNAME'), shown=shown, mucked=mucked, string=string)
                 
     @staticmethod

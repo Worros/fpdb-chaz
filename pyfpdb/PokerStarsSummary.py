@@ -384,7 +384,7 @@ class PokerStarsSummary(TourneySummary):
             log.error(_("PokerStarsSummary.parseSummaryFile: '%s'") % self.summaryText)
             raise FpdbParseError
 
-        #print "DEBUG: m.groupdict(): %s" % m.groupdict()        
+        #print("DEBUG: m.groupdict(): %s" % m.groupdict())
         mg = m.groupdict()
             
         if 'DATETIME'  in mg: m1 = self.re_DateTime.finditer(mg['DATETIME'])
@@ -486,7 +486,7 @@ class PokerStarsSummary(TourneySummary):
         m = re_Player.finditer(self.summaryText)
         for a in m:
             mg = a.groupdict()
-            #print "DEBUG: a.groupdict(): %s" % mg
+            #print("DEBUG: a.groupdict(): %s" % mg)
             name = mg['NAME']
             rank = int(mg['RANK'])
             winnings = 0
@@ -509,12 +509,12 @@ class PokerStarsSummary(TourneySummary):
                 elif mg['CUR1'] == "SC": self.currency="PSFP"
 
             if 'STILLPLAYING' in mg and mg['STILLPLAYING'] != None:
-                #print "stillplaying"
+                #print("stillplaying")
                 rank=None
                 winnings=None
 
             if 'TICKET' in mg and mg['TICKET'] != None:
-                #print "Tournament Ticket Level %s" % mg['LEVEL']
+                #print("Tournament Ticket Level %s" % mg['LEVEL'])
                 step_values = {
                                 '1' :    '750', # Step 1 -    $7.50 USD
                                 '2' :   '2750', # Step 2 -   $27.00 USD
@@ -538,11 +538,11 @@ class PokerStarsSummary(TourneySummary):
                 addOnCount = None
                 koCount = None
 
-            #print "DEBUG: addPlayer(%s, %s, %s, %s, None, None, None)" %(rank, name, winnings, self.currency)
-            #print "DEBUG: self.buyin: %s self.fee %s" %(self.buyin, self.fee)
+            #print("DEBUG: addPlayer(%s, %s, %s, %s, None, None, None)" %(rank, name, winnings, self.currency))
+            #print("DEBUG: self.buyin: %s self.fee %s" %(self.buyin, self.fee))
             self.addPlayer(rank, name, winnings, self.currency, rebuyCount, addOnCount, koCount, entryId)
 
-        #print self
+        #print(self)
         
     def lookupStructures(self, date):
         Structures = PokerStarsStructures.PokerStarsStructures()
