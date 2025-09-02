@@ -50,7 +50,6 @@ else:
     winpaths_appdata = False
 
 import logging, logging.config
-import ConfigParser
 
 # config version is used to flag a warning at runtime if the users config is
 #  out of date.
@@ -973,7 +972,7 @@ class Config:
         for raw_tourneys_node in doc.getElementsByTagName('raw_tourneys'):
             self.raw_tourneys = RawTourneys(raw_tourneys_node)
         
-        #print ""
+        #print("")
     #end def __init__
 
     def add_missing_elements(self, doc, example_file):
@@ -993,7 +992,7 @@ class Config:
             for example_cnode in example_doc.childNodes:
                 if example_cnode.localName == "FreePokerToolsConfig":
                     for e in example_cnode.childNodes:
-                        #print "nodetype", e.nodeType, "name", e.localName, "found", len(doc.getElementsByTagName(e.localName))
+                        #print("nodetype", e.nodeType, "name", e.localName, "found", len(doc.getElementsByTagName(e.localName)))
                         if e.nodeType == e.ELEMENT_NODE and doc.getElementsByTagName(e.localName) == []:
                             new = doc.importNode(e, True)  # True means do deep copy
                             t_node = self.doc.createTextNode("    ")
@@ -1040,7 +1039,7 @@ class Config:
     def getStatSetNode(self,statsetName):
         """returns DOM game node for a given game"""
         for statsetNode in self.doc.getElementsByTagName("ss"):
-            #print "getStatSetNode statsetNode:",statsetNode
+            #print("getStatSetNode statsetNode:",statsetNode)
             if statsetNode.getAttribute("name") == statsetName:
                 return statsetNode
     
@@ -1048,7 +1047,7 @@ class Config:
     def getGameNode(self,gameName):
         """returns DOM game node for a given game"""
         for gameNode in self.doc.getElementsByTagName("game"):
-            #print "getGameNode gameNode:",gameNode
+            #print("getGameNode gameNode:",gameNode)
             if gameNode.getAttribute("game_name") == gameName:
                 return gameNode
     #end def getGameNode
@@ -1124,12 +1123,12 @@ class Config:
             mo = m.match(l)
             if mo:
                 indent_len = mo.end()
-                #print "indent = %s (%s)" % (indent_len, l[0:indent_len])
+                #print("indent = %s (%s)" % (indent_len, l[0:indent_len]))
                 indent = '\n' + ' ' * indent_len
                 m = re.compile('(\S+="[^"]+"\s+)')
                 parts = [x for x in m.split(l[indent_len:]) if x]
                 if len(parts) > 1:
-                    #print "parts =", parts
+                    #print("parts =", parts)
                     l = l[0:indent_len] + indent.join(parts)
             return(l)
         else:
@@ -1199,7 +1198,7 @@ class Config:
     def save_layout_set(self, ls, max, locations, width=None, height=None):
         #wid/height normally not specified when saving common from the mucked display
         
-        print "saving layout =", ls.name, " ", str(max), "Max ", str(locations), "size:", str(width), "x", str(height)
+        print("saving layout =", ls.name, " ", str(max), "Max ", str(locations), "size:", str(width), "x", str(height))
         ls_node = self.get_layout_set_node(ls.name)
         layout_node = self.get_layout_node(ls_node, max)
         if width: layout_node.setAttribute("width", str(width))
@@ -1697,67 +1696,67 @@ if __name__== "__main__":
     set_logfile(u"fpdb-log.txt")
     c = Config()
     
-    print "\n----------- GENERAL -----------"
-    print c.general
+    print("\n----------- GENERAL -----------")
+    print(c.general)
 
-    print "\n----------- SUPPORTED SITES -----------"
+    print("\n----------- SUPPORTED SITES -----------")
     for s in c.supported_sites.keys():
-        print c.supported_sites[s]
+        print(c.supported_sites[s])
 
-    print "\n----------- SUPPORTED GAMES -----------"
+    print("\n----------- SUPPORTED GAMES -----------")
     for game in c.supported_games.keys():
-        print c.supported_games[game]
+        print(c.supported_games[game])
 
-    print "\n----------- SUPPORTED DATABASES -----------"
+    print("\n----------- SUPPORTED DATABASES -----------")
     for db in c.supported_databases.keys():
-        print c.supported_databases[db]
+        print(c.supported_databases[db])
 
-    print "\n----------- AUX WINDOW FORMATS -----------"
+    print("\n----------- AUX WINDOW FORMATS -----------")
     for w in c.aux_windows.keys():
-        print c.aux_windows[w]
+        print(c.aux_windows[w])
     
-    print "\n----------- LAYOUT SETS FORMATS -----------"
+    print("\n----------- LAYOUT SETS FORMATS -----------")
     for w in c.layout_sets.keys():
-        print c.layout_sets[w]
+        print(c.layout_sets[w])
     
-    print "\n----------- STAT SETS FORMATS -----------"
+    print("\n----------- STAT SETS FORMATS -----------")
     for w in c.stat_sets.keys():
-        print c.stat_sets[w]
+        print(c.stat_sets[w])
 
-    print "\n----------- HAND HISTORY CONVERTERS -----------"
+    print("\n----------- HAND HISTORY CONVERTERS -----------")
     for w in c.hhcs.keys():
-        print c.hhcs[w]
+        print(c.hhcs[w])
 
-    print "\n----------- POPUP WINDOW FORMATS -----------"
+    print("\n----------- POPUP WINDOW FORMATS -----------")
     for w in c.popup_windows.keys():
-        print c.popup_windows[w]
+        print(c.popup_windows[w])
         
-    print "\n-----------  DATABASE PARAMS -----------"
-    print "db    = ", c.get_db_parameters()
+    print("\n-----------  DATABASE PARAMS -----------")
+    print("db    = ", c.get_db_parameters())
     
-    print "\n-----------  HUD PARAMS -----------"
-    print "hud params ="
+    print("\n-----------  HUD PARAMS -----------")
+    print("hud params =")
     for hud_param, value in c.get_hud_ui_parameters().iteritems():
-        print " %s = %s" % (hud_param, value)
+        print(" %s = %s" % (hud_param, value))
         
-    print "\n-----------  STARTUP PATH -----------"
-    print "start up path = ", c.execution_path("")
+    print("\n-----------  STARTUP PATH -----------")
+    print("start up path = ", c.execution_path(""))
     
-    print "\n-----------  GUI CASH STATS -----------"
-    print "gui_cash_stats =", c.gui_cash_stats
+    print("\n-----------  GUI CASH STATS -----------")
+    print("gui_cash_stats =", c.gui_cash_stats)
 
-    print "\n----------- ENVIRONMENT CONSTANTS -----------"
-    print "Configuration.install_method {source,exe,app} =", INSTALL_METHOD
-    print "Configuration.fpdb_root_path =", FPDB_ROOT_PATH, type(FPDB_ROOT_PATH)
-    print "Configuration.graphics_path =", GRAPHICS_PATH, type(GRAPHICS_PATH)
-    print "Configuration.appdata_path =", APPDATA_PATH, type(APPDATA_PATH)
-    print "Configuration.config_path =", CONFIG_PATH, type(CONFIG_PATH)
-    print "Configuration.pyfpdb_path =", PYFPDB_PATH, type(PYFPDB_PATH)
-    print "Configuration.os_family {Linux,Mac,XP,Win7} =", OS_FAMILY
-    print "Configuration.posix {True/False} =", POSIX
-    print "Configuration.python_version =", PYTHON_VERSION
-    print "\n\n----------- END OF CONFIG REPORT -----------"
+    print("\n----------- ENVIRONMENT CONSTANTS -----------")
+    print("Configuration.install_method {source,exe,app} =", INSTALL_METHOD)
+    print("Configuration.fpdb_root_path =", FPDB_ROOT_PATH, type(FPDB_ROOT_PATH))
+    print("Configuration.graphics_path =", GRAPHICS_PATH, type(GRAPHICS_PATH))
+    print("Configuration.appdata_path =", APPDATA_PATH, type(APPDATA_PATH))
+    print("Configuration.config_path =", CONFIG_PATH, type(CONFIG_PATH))
+    print("Configuration.pyfpdb_path =", PYFPDB_PATH, type(PYFPDB_PATH))
+    print("Configuration.os_family {Linux,Mac,XP,Win7} =", OS_FAMILY)
+    print("Configuration.posix {True/False} =", POSIX)
+    print("Configuration.python_version =", PYTHON_VERSION)
+    print("\n\n----------- END OF CONFIG REPORT -----------")
 
-    print "press enter to end"
+    print("press enter to end")
     sys.stdin.readline()
 
