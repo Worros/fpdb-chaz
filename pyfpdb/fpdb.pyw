@@ -26,7 +26,7 @@ if os.name == 'nt':
     import win32api
     import win32con
 
-print "Python " + sys.version[0:3] + '...'
+print("Python " + sys.version[0:3] + '...')
 
 import codecs
 import traceback
@@ -76,7 +76,7 @@ import GuiHandViewer
 try:
     import GuiStove
 except:
-    print _("GuiStove not found. If you want to use it please install pypoker-eval.")
+    print(_("GuiStove not found. If you want to use it please install pypoker-eval."))
 import SQL
 import Database
 import Configuration
@@ -192,13 +192,13 @@ class fpdb(QMainWindow):
     def remove_tab(self, button, data):
         (nb, text) = data
         page = -1
-        #print "\n remove_tab: start", text
+        #print("\n remove_tab: start", text)
         for i, tab in enumerate(self.nb_tab_names):
             if text == tab:
                 page = i
-        #print "   page =", page
+        #print("   page =", page)
         if page >= 0 and page < self.nb.get_n_pages():
-            #print "   removing page", page
+            #print("   removing page", page)
             del self.nb_tab_names[page]
             nb.remove_page(page)
         # Need to refresh the widget --
@@ -533,7 +533,7 @@ class fpdb(QMainWindow):
                 self.release_global_lock()
             else:
                 self.release_global_lock()
-                print _('User cancelled recreating tables')
+                print(_('User cancelled recreating tables'))
         else:
             self.warning_box(_("Cannot open Database Maintenance window because other windows have been opened. Re-start fpdb to use this option."))
 
@@ -575,11 +575,11 @@ class fpdb(QMainWindow):
 
             response = self.dia_confirm.exec_()
             if response:
-                print _(" Rebuilding HUD Cache ... ")
+                print(_(" Rebuilding HUD Cache ... "))
 
                 self.db.rebuild_cache(self.h_start_date.date().toString("yyyy-MM-dd"), self.start_date.date().toString("yyyy-MM-dd"))
             else:
-                print _('User cancelled rebuilding hud cache')
+                print(_('User cancelled rebuilding hud cache'))
 
             self.release_global_lock()
         else:
@@ -597,16 +597,16 @@ class fpdb(QMainWindow):
 
             response = self.dia_confirm.exec_()
             if response == QMessageBox.Yes:
-                print _(" Rebuilding Indexes ... ")
+                print(_(" Rebuilding Indexes ... "))
                 self.db.rebuild_indexes()
 
-                print _(" Cleaning Database ... ")
+                print(_(" Cleaning Database ... "))
                 self.db.vacuumDB()
 
-                print _(" Analyzing Database ... ")
+                print(_(" Analyzing Database ... "))
                 self.db.analyzeDB()
             else:
-                print _('User cancelled rebuilding db indexes')
+                print(_('User cancelled rebuilding db indexes'))
 
             self.release_global_lock()
         else:
@@ -629,11 +629,11 @@ class fpdb(QMainWindow):
                 break
 
         if viewer is None:
-            #print "creating new log viewer"
+            #print("creating new log viewer")
             new_thread = GuiLogView.GuiLogView(self.config, self.window, self.closeq)
             self.threads.append(new_thread)
         else:
-            #print "showing existing log viewer"
+            #print("showing existing log viewer")
             viewer.get_dialog().present()
 
         #if lock_set:
@@ -723,7 +723,7 @@ class fpdb(QMainWindow):
         response = dia.exec_()
         if response:
             for site_number in range(0, len(available_site_names)):
-                #print "site %s enabled=%s name=%s" % (available_site_names[site_number], check_buttons[site_number].get_active(), screen_names[site_number].get_text(), history_paths[site_number].get_text())
+                #print("site %s enabled=%s name=%s" % (available_site_names[site_number], check_buttons[site_number].get_active(), screen_names[site_number].get_text(), history_paths[site_number].get_text()))
                 self.config.edit_site(available_site_names[site_number], str(check_buttons[site_number].isChecked()), screen_names[site_number].text(), history_paths[site_number].text(), summary_paths[site_number].text())
             
             self.config.save()
@@ -875,7 +875,7 @@ class fpdb(QMainWindow):
             sys.exit()
 
         log = logging.getLogger("fpdb")
-        print (_("Logfile is %s") % os.path.join(self.config.dir_log, self.config.log_file))
+        print((_("Logfile is %s") % os.path.join(self.config.dir_log, self.config.log_file)))
         if self.config.example_copy or self.display_config_created_dialogue:
             self.info_box(_("Config file"),
                           _("Config file has been created at %s.") % self.config.file + " "
@@ -932,7 +932,7 @@ class fpdb(QMainWindow):
             self.db = Database.Database(self.config, sql=self.sql)
             if self.db.get_backend_name() == 'SQLite':
                 # tell sqlite users where the db file is
-                print (_("Connected to SQLite: %s") % self.db.db_path)
+                print((_("Connected to SQLite: %s") % self.db.db_path))
         except Exceptions.FpdbMySQLAccessDenied:
             err_msg = _("MySQL Server reports: Access denied. Are your permissions set correctly?")
         except Exceptions.FpdbMySQLNoDatabase:
@@ -970,10 +970,10 @@ class fpdb(QMainWindow):
     def obtain_global_lock(self, source):
         ret = self.lock.acquire(source=source)  # will return false if lock is already held
         if ret:
-            print (_("Global lock taken by %s") % source)
+            print((_("Global lock taken by %s") % source))
             self.lockTakenBy=source
         else:
-            print (_("Failed to get global lock, it is currently held by %s") % source)
+            print((_("Failed to get global lock, it is currently held by %s") % source))
         return ret
         # need to release it later:
         # self.lock.release()
@@ -983,7 +983,7 @@ class fpdb(QMainWindow):
         #FIXME  get two "quitting normally" messages, following the addition of the self.window.destroy() call
         #       ... because self.window.destroy() leads to self.destroy() which calls this!
         if not self.quitting:
-            print _("Quitting normally")
+            print(_("Quitting normally"))
             self.quitting = True
         # TODO: check if current settings differ from profile, if so offer to save or abort
 
@@ -1006,7 +1006,7 @@ class fpdb(QMainWindow):
     def release_global_lock(self):
         self.lock.release()
         self.lockTakenBy = None
-        print _("Global lock released.")
+        print(_("Global lock released."))
 
     def tab_auto_import(self, widget, data=None):
         """opens the auto import tab"""
@@ -1301,7 +1301,7 @@ You can find the full license texts in agpl-3.0.txt, gpl-2.0.txt, gpl-3.0.txt an
         for site in self.config.supported_sites:    # get site names from config file
             try:
                 self.config.get_site_id(site)                     # and check against list from db
-            except KeyError, exc:
+            except KeyError as exc:
                 log.warning("site %s missing from db" % site)
                 dia = gtk.MessageDialog(parent=None, flags=0, type=gtk.MESSAGE_WARNING, buttons=(gtk.BUTTONS_OK), message_format=_("Unknown Site"))
                 diastring = _("Warning:") +" " + _("Unable to find site '%s'") % site
