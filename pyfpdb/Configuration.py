@@ -147,12 +147,12 @@ def get_config(file_name, fallback = True):
 
     config_path = os.path.join(FPDB_ROOT_PATH, 'pyfpdb', file_name)
     
-    #print "config_path=", config_path
+    #print("config_path=", config_path)
     if os.path.exists(config_path):    # there is a file in the cwd
         config_found = True            # so we use it
     else: # no file in the cwd, look where it should be in the first place
         config_path = os.path.join(CONFIG_PATH, file_name)
-        #print "config path 2=", config_path
+        #print("config path 2=", config_path)
         if os.path.exists(config_path):
             config_found = True
     #TODO: clean up the example path loading to ensure it behaves the same on all OSs
@@ -187,7 +187,7 @@ def get_config(file_name, fallback = True):
 #    OK, fall back to the .example file, should be in the start dir
     elif os.path.exists(os.path.join(PYFPDB_PATH, file_name + '.example')):
         try:
-            #print ""
+            #print("")
             example_path = os.path.join(PYFPDB_PATH, file_name + '.example')
             if not config_found and fallback:
                 shutil.copyfile(example_path, config_path)
@@ -204,7 +204,7 @@ def get_config(file_name, fallback = True):
         sys.stderr.write((_("No %s found, cannot fall back. Exiting.") % file_name) + "\n")
         sys.exit()
 
-    #print "get_config: returning "+str( (config_path,example_copy,example_path) )
+    #print("get_config: returning "+str( (config_path,example_copy,example_path) ))
     return (config_path,example_copy,example_path)
 
 def set_logfile(file_name):
@@ -746,20 +746,20 @@ class RawHands:
         if node==None:
             self.save="error"
             self.compression="none"
-            #print _("missing config section raw_hands")
+            #print(_("missing config section raw_hands"))
         else:
             save=node.getAttribute("save")
             if save in ("none", "error", "all"):
                 self.save=save
             else:
-                print (_("Invalid config value for %s, defaulting to %s") % (raw_hands.save, "\"error\""))
+                print(_("Invalid config value for %s, defaulting to %s") % (raw_hands.save, "\"error\""))
                 self.save="error"
             
             compression=node.getAttribute("compression")
             if save in ("none", "gzip", "bzip2"):
                 self.compression=compression
             else:
-                print (_("Invalid config value for %s, defaulting to %s") % (raw_hands.compression, "\"none\""))
+                print(_("Invalid config value for %s, defaulting to %s") % (raw_hands.compression, "\"none\""))
                 self.compression="none"
     #end def __init__
 
@@ -772,20 +772,20 @@ class RawTourneys:
         if node==None:
             self.save="error"
             self.compression="none"
-            #print _("missing config section raw_tourneys")
+            #print(_("missing config section raw_tourneys"))
         else:
             save=node.getAttribute("save")
             if save in ("none", "error", "all"):
                 self.save=save
             else:
-                print (_("Invalid config value for %s, defaulting to %s") % (raw_tourneys.save, "\"error\""))
+                print(_("Invalid config value for %s, defaulting to %s") % (raw_tourneys.save, "\"error\""))
                 self.save="error"
             
             compression=node.getAttribute("compression")
             if save in ("none", "gzip", "bzip2"):
                 self.compression=compression
             else:
-                print (_("Invalid config value for %s, defaulting to %s") % (raw_tourneys.compression, "\"none\""))
+                print(_("Invalid config value for %s, defaulting to %s") % (raw_tourneys.compression, "\"none\""))
                 self.compression="none"
     #end def __init__
 
@@ -853,7 +853,7 @@ class Config:
         while added > 0 and n < 2:
             n = n + 1
             log.info(unicode(_("Reading configuration file %s"), "utf8") % file)
-            #print (("\n"+_("Reading configuration file %s")+"\n") % file)
+            #print(("\n"+_("Reading configuration file %s")+"\n") % file)
             try:
                 doc = xml.dom.minidom.parse(file)
                 self.doc = doc
@@ -865,7 +865,7 @@ class Config:
                 self.file_error = sys.exc_info()[1]
                 # we could add a parameter to decide whether to return or read a line and exit?
                 return
-                #print "press enter to continue"
+                #print("press enter to continue")
                 #sys.stdin.readline()
                 #sys.exit()
 
