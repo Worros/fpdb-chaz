@@ -22,8 +22,8 @@ _ = L10n.get_translation()
 
 import os  # todo: remove this once import_dir is in fpdb_import
 from time import time, sleep
+from queue import Queue
 import datetime
-import Queue
 import shutil
 import re
 

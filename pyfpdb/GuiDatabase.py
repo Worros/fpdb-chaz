@@ -21,7 +21,7 @@ _ = L10n.get_translation()
 import os
 import sys
 import traceback
-import Queue
+from queue import Queue
 import re
 
 import logging

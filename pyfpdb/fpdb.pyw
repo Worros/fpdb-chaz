@@ -20,7 +20,7 @@ _ = L10n.init_translation()
 import os
 import sys
 import re
-import Queue
+from queue import Queue
 
 if os.name == 'nt':
     import win32api

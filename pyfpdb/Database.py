@@ -39,9 +39,9 @@ import traceback
 from datetime import datetime, date, time, timedelta
 from time import time, strftime, sleep
 from decimal_wrapper import Decimal
+from queue import Queue
 import string
 import re
-import Queue
 import codecs
 import math 
 import pytz
