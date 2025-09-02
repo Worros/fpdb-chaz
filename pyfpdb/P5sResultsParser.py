@@ -22,7 +22,7 @@ for table in soup.findAll('table'):
         for col in row.findAll('td'):
             tmp = tmp + [col.string]
             #print col.string
-        if len(tmp) > 3 and tmp[2] <> None:
+        if len(tmp) > 3 and tmp[2] != None:
             results = results + [tmp]
 
 cols =  ['TOURNAMENT', 'SITE', 'DATE', 'PRIZEPOOL', 'BUY-IN', 'PLACE', 'WON']

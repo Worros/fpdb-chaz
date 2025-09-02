@@ -90,7 +90,7 @@ def cleannote(textin):
     return textin[0:textin.find("~fpdb~")] + textin[textin.find("~ends~")+6:]
 # get out now if parameter not passed
 try: 
-    sys.argv[1] <> ""
+    sys.argv[1] != ""
 except: 
     print "A parameter is required, quitting now"
     print "normal usage is something like:"

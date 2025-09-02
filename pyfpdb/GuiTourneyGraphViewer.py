@@ -244,7 +244,7 @@ class GuiTourneyGraphViewer(QSplitter):
 
         response = dia_chooser.run()
         
-        if response <> gtk.RESPONSE_OK:
+        if response != gtk.RESPONSE_OK:
             print _('Closed, no graph exported')
             dia_chooser.destroy()
             return
